@@ -284,13 +284,13 @@ Uref = 3.2
 
 ## Oppgave 4: Beregne spenning fra analog verdi
 
-Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å gjøre dette, bruk formelen under:
-
-![Formel_spenning_fra_analogverdi_liten.png](https://i.postimg.cc/YSn2XtQv/Formel_spenning_fra_analogverdi_liten.png)
+Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å gjøre dette, bruk formelen under: i hint-boksen.
 
 Lage en ny variabel: ``||variables: spenning||``.
 
-Bruk formelen over for å sette ``||variables: spenning||`` til ( ``||variables: analogverdi||`` / 1024 ) * ``||variables: Uref||``.
+Bruk formelen over for å sette ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1024 ) * ``||variables: Uref||``.
+
+![Formel_spenning_fra_analogverdi_liten.png](https://i.postimg.cc/YSn2XtQv/Formel_spenning_fra_analogverdi_liten.png)
 
 
 ```blocks
@@ -338,7 +338,7 @@ kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 
 <!-- Del 4.6: -->
 
-## Oppgave 4: Runde av spenningsverdi
+## Oppgave 4: Runde av spenningsverdi til 2 desimaler
 
 Når du testet koden din, så du kanskje at det ble mange desimaler. Vi har ingen blokk som lar oss direkte avrunde til 2 desimaler. Det vi må gjøre er å lage en funksjon som tar den verdien vår med mange deimaler og returnerer en verdi med 2 desimaler. 
 
@@ -387,6 +387,8 @@ Inne ``||functions: termometer||``, lage en ny variabel: ``||variables: temperat
 
 Bruk denne formelen for å sette ``||variables: temperatur||`` til ( ``||variables: spenning||`` - 0.5 ) / 0.01
 
+Se hint for bilde av formel
+
 ![Formel-temperatur-fra-spenning-liten.png](https://i.postimg.cc/yNQ6f70J/Formel-temperatur-fra-spenning-liten.png)
 
 
@@ -422,11 +424,7 @@ basic.forever(function () {
     basic.pause(500)
 })
 function voltmeter () {
-    analogVerdi = pins.analogReadPin(AnalogPin.P0)
-    spenning = avrund(analogVerdi / 1024 * Uref)
-    kitronik_VIEW128x64.clear()
-    kitronik_VIEW128x64.show("Analog: " + analogVerdi, 1)
-    kitronik_VIEW128x64.show("Spenning: " + spenning + " V", 2)
+
 }
 ```
 
@@ -436,7 +434,7 @@ function voltmeter () {
 
 #### Vi skal bruke en ``||BME280: BME280||`` sensor. 
 
-![BME280.png](https://i.postimg.cc/ZYjVtVRH/BME280.png)
+![BME280.png](https://i.postimg.cc/3J0ZjjvD/BME280.png)
 
 Denne sensoren kan måle:
 
@@ -452,7 +450,7 @@ For å lage et barometer skal vi bruke ``||BMP280: trykk||``.
 
 ## Oppgave 6: Koble opp og lese av fra BME280
 
-For å få BME280 til å snakke med CanSat, skal vi sette opp to blokken inn i ``||basic: ved start||`` fra biblioteket ``||BMP280: BMP280||``:
+For å få BME280 til å snakke med CanSat, skal vi sette opp to blokken inn i ``||basic: ved start||`` fra biblioteket ``||BME280: BME280||``:
 
 - ``||BME280: Power On||``
 - ``||BME280: set address 0x76||``
@@ -583,10 +581,10 @@ input.onButtonPressed(Button.A, function () {
         tekst = convertToText(0).charAt(0).substr(0, "this".compare("")).indexOf("")
     } else if (led.point(0, 0)) {
 
-    } else if (BMP280.temperature() == BMP280.pressure()) {
-        BMP280.PowerOn()
-        BMP280.PowerOff()
-        BMP280.Address(BMP280_I2C_ADDRESS.ADDR_0x76)
+    } else if (BME280.temperature() == BME280.pressure()) {
+        BME280.PowerOn()
+        BME280.PowerOff()
+        BME280.Address(BME280_I2C_ADDRESS.ADDR_0x76)
     } else if (Math.randomBoolean()) {
         basic.showNumber(0 * 0 - Math.PI + 0 / (Math.min(Math.max(Math.sqrt(Math.round(randint(0, 10))), Math.abs(Math.constrain(0, 0, 0))), Math.map(0, 0, 1023, 0, 4)) % 1))
     } else if ("this".includes("")) {
@@ -634,11 +632,11 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onGesture(Gesture.Shake, function () {
-    BMP280.temperature()
-    BMP280.pressure()
-    BMP280.PowerOn()
-    BMP280.PowerOff()
-    BMP280.Address(BMP280_I2C_ADDRESS.ADDR_0x76)
+    BME280.temperature()
+    BME280.pressure()
+    BME280.PowerOn()
+    BME280.PowerOff()
+    BME280.Address(BMP280_I2C_ADDRESS.ADDR_0x76)
 })
 function doSomething() {
 
