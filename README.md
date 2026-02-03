@@ -1,6 +1,10 @@
 
 > Åpne denne siden på [https://oysa88.github.io/cansat-oving-tutorial/](https://oysa88.github.io/cansat-oving-tutorial/)
 
+## Kjør tutorial
+
+* åpne https://makecode.microbit.org/#tutorial:github:oysa88/cansat-oving-tutorial/cansat-tutorial
+
 ## Bruk som utvidelse
 
 Dette kodeområdet kan bli lagt til som en **utvidelse** i MakeCode.
