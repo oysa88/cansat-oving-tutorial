@@ -23,9 +23,6 @@ I denne veiledningen skal vi gå gjennom grunnleggende funksjoner som dere får 
 
 **6)** Koble til en BMP280 sensor, les av lufttrykk og skriv det på OLED-skjerm.
 
-**7)** Regne om barometrisk lufttrykk til relativ høyde på CanSat.
-
-**8)** Sende data mellom 2 micro:bit og lagre de i en datalogger
 
 #### **Lykke til!**
 
@@ -81,7 +78,8 @@ Sett ``||loops: gjenta for indeks ||`` til å kjøres **fra 0 til 10**.
 
 Inni ``||loops: gjenta for indeks ||`` skal vi bruke en ``||basic: vis tall ||`` til å vise ``||variables: teller ||``. Og for hver gang den har vist tallet, ``||variables: endre teller med -1 ||``.
 
-Husk å kjøre ``||functions: nedtelling||`` fra ``||basic: ved start||``. Denne blokken brukes for å si når funksjonen skal kjøres.
+For å få programmet vårt til å kjøre funksjonen vi har laget, må vi legge inn blokken ``||functions: kjør nedtelling||`` inne ``||basic: ved start||``.
+
 
 ```blocks
 function nedtelling () {
@@ -173,13 +171,11 @@ kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Big)
 
 Vi skal vise nedtellingen vi lagde i forrige oppgave på OLED-skjermen vi nå har satt opp.
 
-Fjern blokken ``||basic: vis tall||`` ``||variables: teller||`` fra  funksjonen ``||functions: nedtelling||``. 
+Bytt blokken ``||basic: vis tall||`` ``||variables: teller||`` fra  funksjonen ``||functions: nedtelling||`` med ``||kitronik_VIEW128x64: vis ||`` fra ``||kitronik_VIEW128x64:OLED-skjerm||``. Trykk på pluss(+) for å utvide blokken, og bestemme hvilken linje teksten skal skrives på:
 
-For å vise noe på skjermen, bruk blokken ``||kitronik_VIEW128x64: vis ||``. Trykk på pluss(+) for å utvide blokken, og bestemme hvilken linje teksten skal skrives på:
+- ``||kitronik_VIEW128x64: vis||`` ``||variables: teller||`` ``||kitronik_VIEW128x64: på linje 1||``.
 
-- ``||kitronik_VIEW128x64: vis||``, vis ``||variables: teller||`` ``||kitronik_VIEW128x64: på linje 1||``.
-
-For å sørge for at skjermen alltid viser riktig verdi, må vi hele tiden oppdatere OLED-skjermen. Vi må derfor plassere``||kitronik_VIEW128x64: fjerne alt på skjermen||`` inni ``||basic: gjenta for alltid||``.
+For å sørge for at skjermen alltid viser riktig verdi, må vi hele tiden oppdatere OLED-skjermen. Vi må derfor plassere``||kitronik_VIEW128x64: fjerne alt på skjermen||`` inni ``||loops: for-løkken||``.
 
 ```blocks
 function nedtelling () {
@@ -188,6 +184,7 @@ function nedtelling () {
         kitronik_VIEW128x64.show(teller, 1)
         teller += -1
         basic.pause(1000)
+        kitronik_VIEW128x64.clear()
     }
     pins.digitalWritePin(DigitalPin.P0, 1)
     basic.pause(5000)
@@ -200,10 +197,6 @@ let teller = 0
 kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
 kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Big)
 nedtelling()
-basic.forever(function () {
-	kitronik_VIEW128x64.clear()
-})
-
 ```
 
 
@@ -215,6 +208,9 @@ Alle sensorene vi skal koble til CanSat'en, gir oss en analog verdi. Noen av dis
 
 Vi må derfor lære hvordan man konverterer den analoge verdien vi får inn på micro:biten til en spenningsverdi.
 
+For å se at vi får riktige verdier i utregningene våre, skal vi koble et 1,5V batteri til micro:bit. 
+
+![batteriholder](https://assets.spares.nu/products/featured/11460_plHteYWpYtYyLyQBlOn_y.jpg)
 
 <!-- Del 4.1: -->
 
@@ -242,7 +238,7 @@ For å kunne vise både tekst og en variabel på samme linje, må vi hente ``||t
 
 I den første ruta til ``||text: sett sammen ||``, skriv "Analog: ". I den andre ruta, sette inn variabelen ``||variables: analogVerdi||``.
 
-For å få programmet vårt til å kjøre funksjonen vi har laget, må vi legge inn blokken ``||functions: kjør voltmeter||`` inne fra ``||basic: gjenta for alltid||``. Legg oggså til en ``||basic: pause||`` på 500 ms mellom hver måling.
+For å få programmet vårt til å kjøre funksjonen vi har laget, må vi legge inn blokken ``||functions: kjør voltmeter||`` inne ``||basic: gjenta for alltid||``. Legg også til en ``||basic: pause||`` på 500 ms mellom hver måling.
 
 ```blocks
 let analogVerdi = 0
@@ -295,6 +291,8 @@ Bruk formelen over for å sette ``||variables: spenning||`` til ( ``||variables:
 
 
 ```blocks
+let analogVerdi = 0
+let spenning = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
     spenning = analogVerdi / 1024 * Uref
@@ -320,6 +318,7 @@ Endre skriftstørrelse på OLED-skjerm til ``||kitronik_VIEW128x64: Normal ||``.
 ```blocks
 let spenning = 0
 let analogVerdi = 0
+let Uref = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
     spenning = analogVerdi / 1024 * Uref
@@ -349,6 +348,7 @@ Kjør ``||functions: avrund||`` fra der vi regner ut verdien til ``||variables: 
 ```blocks
 let spenning = 0
 let analogVerdi = 0
+let Uref = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
     spenning = avrund(analogVerdi / 1024 * Uref)
@@ -384,7 +384,12 @@ Inne ``||functions: termometer||``, lage en ny variabel: ``||variables: temperat
 
 Bruk denne formelen for å sette ``||variables: temperatur||`` til ( ``||variables: spenning||`` - 0.5 ) / 0.01
 
+![Formel-temperatur-fra-spenning-liten.png](https://i.postimg.cc/yNQ6f70J/Formel-temperatur-fra-spenning-liten.png)
+
+
 ```blocks
+let temperatur = 0
+let spenning = 0
 function termometer () {
     temperatur = (spenning - 0.5) / 0.01
 }
@@ -394,13 +399,16 @@ function termometer () {
 
 ## Oppgave 5: Vise termometer på OLED-skjerm
 
- Plasser en ``||text: sett sammen ||`` inni en ny ``||kitronik_VIEW128x64: show ||``. Utvid blokken og endre til å skrive på linje 3.
+Plasser en ``||text: sett sammen ||`` inni en ny ``||kitronik_VIEW128x64: vis ||``. Utvid blokken og endre til å skrive på linje 3.
 
 I den første ruta til ``||text: sett sammen ||``, skriv "Temperatur: ". I den andre ruta, sette inn variabelen ``||variables: temperatur||``. Utvid til en tredje rute hvor du skriver " C".
 
 Kall opp funksjonen ``||functions: termometer||`` fra ``||basic: gjenta for alltid||``, og flytt ``||basic: pause 500 ms||`` fra ``||functions: voltmeter||`` til ``||basic: gjenta for alltid||``.
 
 ```blocks
+let temperatur = 0
+let spenning = 0
+let analogVerdi = 0
 function termometer () {
     temperatur = (spenning - 0.5) / 0.01
     kitronik_VIEW128x64.show("Temperatur: " + temperatur + " C", 3)
@@ -412,7 +420,7 @@ basic.forever(function () {
 })
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
-    spenning = anrund(analogVerdi / 1024 * Uref)
+    spenning = avrund(analogVerdi / 1024 * Uref)
     kitronik_VIEW128x64.clear()
     kitronik_VIEW128x64.show("Analog: " + analogVerdi, 1)
     kitronik_VIEW128x64.show("Spenning: " + spenning + " V", 2)
@@ -423,7 +431,7 @@ function voltmeter () {
 
 ## Oppgave 6: Lag et barometer @unplugged
 
-#### Vi skal bruke en ``||BMP280: BMP280||`` sensor. 
+#### Vi skal bruke en ``||BME280: BME280||`` sensor. 
 
 ![BME280.png](https://i.postimg.cc/ZYjVtVRH/BME280.png)
 
@@ -446,17 +454,19 @@ For å få BME280 til å snakke med CanSat, skal vi sette opp to blokken inn i `
 - ``||BME280: Power On||``
 - ``||BME280: set address 0x76||``
 
-Videre, lage en ny funksjon: ``||functions: BMP280_sensor||``.
+Videre, lage en ny funksjon: ``||functions: barometer||``.
 
-Inne ``||functions: BME280_sensor||``, sett opp en ny variabel: ``||variables: trykk||``. Sett ``||variables: trykk||`` til ``||BME280: pressure||`` (fra biblioteket BME280).
+Inne ``||functions: barometer||``, sett opp en ny variabel: ``||variables: trykk||``. Sett ``||variables: trykk||`` til ``||BME280: trykk||`` (fra biblioteket BME280).
 
 ```blocks
+let trykk = 0
+let Uref = 0
 Uref = 3.2
 kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
 kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 BME280.PowerOn()
 BME280.Address(BME280_I2C_ADDRESS.ADDR_0x76)
-function BME280_sensor () {
+function barometer () {
     trykk = BME280.pressure(BME280_P.Pa)
 }
 ```
@@ -470,6 +480,8 @@ Kopier koden vi har brukt før for å skrive til OLED-skjerm.
 I den første ruta, skriv "Trykk: ". I den andre ruta, sette inn ``||variables: trykk||``. I den tredje, skriv " Pa". Skriv til linje 4.
 
 ```blocks
+let trykk = 0
+let Uref = 0
 Uref = 3.2
 kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
 kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
