@@ -284,7 +284,7 @@ Uref = 3.2
 
 ## Oppgave 4: Beregne spenning fra analog verdi
 
-Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å gjøre dette, bruk formelen under: i hint-boksen.
+Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å gjøre dette, bruk formelen under, i hint-boksen.
 
 Lage en ny variabel: ``||variables: spenning||``.
 
@@ -387,7 +387,7 @@ Inne ``||functions: termometer||``, lage en ny variabel: ``||variables: temperat
 
 Bruk denne formelen for å sette ``||variables: temperatur||`` til ( ``||variables: spenning||`` - 0.5 ) / 0.01
 
-Se hint for bilde av formel
+Se hint for bilde av formel:
 
 ![Formel-temperatur-fra-spenning-liten.png](https://i.postimg.cc/yNQ6f70J/Formel-temperatur-fra-spenning-liten.png)
 
@@ -443,7 +443,7 @@ Denne sensoren kan måle:
 - Luftfuktighet
 - Duggpunkt
 
-For å lage et barometer skal vi bruke ``||BMP280: trykk||``.
+For å lage et barometer skal vi bruke ``||BME280: trykk||``.
 
 
 <!-- Del 6.1: -->
