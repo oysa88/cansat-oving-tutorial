@@ -210,7 +210,8 @@ Vi må derfor lære hvordan man konverterer den analoge verdien vi får inn på 
 
 For å se at vi får riktige verdier i utregningene våre, skal vi koble et 1,5V batteri til micro:bit. 
 
-![batteriholder](https://assets.spares.nu/products/featured/11460_plHteYWpYtYyLyQBlOn_y.jpg)
+![batteriholder-1-5V.webp](https://i.postimg.cc/BZhk6Cx5/batteriholder-1-5V.webp)
+
 
 <!-- Del 4.1: -->
 
