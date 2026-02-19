@@ -33,7 +33,7 @@ I denne veiledningen skal vi gå gjennom grunnleggende funksjoner som dere får 
 
 Koble opp kretsen som vist på bildet under.
 
-NB: Koble pluss på LED til inngangen P0 og minus til jord (GND).
+NB: Koble pluss på LED (langt beinet) til inngangen P0 og minus (kort bein) til jord (GND).
 
 ![microbit_øvelse_1_LED_liten.jpg](https://i.postimg.cc/KYqc9mtM/microbit_øvelse_1_LED_liten.jpg)
 
@@ -210,7 +210,9 @@ Vi må derfor lære hvordan man konverterer den analoge verdien vi får inn på 
 
 For å se at vi får riktige verdier i utregningene våre, skal vi koble et 1,5V batteri til micro:bit. 
 
-Koble puss (+) til P0 og minus (-) til GND.
+Koble pluss (+) til P0 og minus (-) til GND.
+
+**NB:** Fjern LED-lyset 
 
 ![batteriholder-1-5V.webp](https://i.postimg.cc/VkFHxBLV/batteriholder-1-5V.webp)
 
@@ -233,7 +235,7 @@ function voltmeter () {
 
 ## Oppgave 4: Vise analog verdi på OLED-skjermen
 
-Inni funksjonen ``||functions: voltmeter||`` skal vi vise den analoge verdien vi får fra P0. 
+Inni funksjonen ``||functions: voltmeter||`` skal vi vise den analoge verdien vi får fra P1. 
 
 For å vise noe på skjermen, bruk blokken ``||kitronik_VIEW128x64: vis ||``. Trykk på pluss(+) for å utvide blokken, og bestemme hvilken linje teksten skal skrives på:
 
@@ -376,6 +378,7 @@ Koble opp kretsen på bildet under:
 
 ![Oppgave_5_TMP36_Oppkobling_liten.png](https://i.postimg.cc/Jh67TRjX/Oppgave_5_TMP36_Oppkobling_liten.png)
 
+**NB:** Fjern batteriet du har koblet til P0 
 
 <!-- Del 5.1: -->
 
