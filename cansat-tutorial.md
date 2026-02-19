@@ -40,7 +40,7 @@ NB: Koble pluss på LED (langt beinet) til inngangen P0 og minus (kort bein) til
 
 <!-- Del 1.2: -->
 
-## Oppgave 1: Få LED-lyset til å skru seg AV og PÅ én gang hvert sekund.
+## Oppgave 1: Få LED-lyset til å skru seg AV og PÅ hvert sekund
 
 Inni ``||basic: gjenta for alltid||``:
 
@@ -64,27 +64,27 @@ basic.forever(function () {
 
 <!-- Del 2.1: -->
 
-## Oppgave 2: Telle fra 10 til 0
+## Oppgave 2: Nedtelling fra 10 til 0
 
-**Når man skal lage store koder, er det vanlig å bruke ``||functions: funksjoner||``. Inni funksjonen bygger vi koden for det vi vil den skal utføre, og så kaller vi den opp når vi trenger den.**
+**Når man skal lage store koder, er det vanlig å bruke ``||functions: funksjoner||``. Inni funksjonen bygger vi koden for det vi vil den skal utføre, og kjører den der vi trenger den.**
 
 Start med å lage funksjonen ``||functions: nedtelling||``:
 
-For å kunne telle nedover, trenger vi en variabel som kan huske tallet vår. Variabler er noe vi bruker for å at koden vår skal kunne *huske* verdiene vi jobber med. Lag en ny variabel: ``||variables: teller ||``. Plasser blokken ``||variables: sett teller til 10 ||`` inni ``||functions: nedtelling||``.
+For å kunne telle nedover, trenger vi en variabel som kan huske tallet vår. Variabler er noe vi bruker for at koden vår skal kunne *huske* verdiene vi jobber med. Lag en ny variabel: ``||variables: teller ||``. Plasser blokken ``||variables: sett teller til 10 ||`` inni ``||functions: nedtelling||``.
 
 Siden vi skal telle ned fra 10 til 0, bruker vi en ``||loops: FOR-løkke ||`` som lar oss gjenta løkken akkurat så mange ganger vi ønsker. 
 
-Sett ``||loops: gjenta for indeks ||`` til å kjøres **fra 0 til 10**.
+Bruk``||loops: gjenta ||``. Endre tallet slik at koden teller ned til 0.
 
-Inni ``||loops: gjenta for indeks ||`` skal vi bruke en ``||basic: vis tall ||`` til å vise ``||variables: teller ||``. Og for hver gang den har vist tallet, ``||variables: endre teller med -1 ||``.
+Inni ``||loops: gjenta ||`` skal vi bruke en ``||basic: vis tall ||`` til å vise ``||variables: teller ||``. Og for hver gang den har vist tallet, ``||variables: endre teller med -1 ||``.
 
-For å få programmet vårt til å kjøre funksjonen vi har laget, må vi legge inn blokken ``||functions: kjør nedtelling||`` inne ``||basic: ved start||``.
+For å få programmet til å kjøre funksjonen, må vi legge inn blokken ``||functions: kjør nedtelling||`` inne ``||basic: ved start||``.
 
 
 ```blocks
 function nedtelling () {
     teller = 10
-    for (let indeks = 0; indeks <= 10; indeks++) {
+    for (let index = 0; index < 11; index++) {
         basic.showNumber(teller)
         teller += -1
     }
@@ -97,14 +97,14 @@ nedtelling()
 
 ## Oppgave 2: Få LED-lys til å lyse i 5 sek. etter nedtellingen
 
-For å få LED til å lyse i 5 sek, kan vi flytte blokkene vi har i ``||basic: gjenta for alltid ||``, over til ``||functions: nedtelling ||``. 
+Bruk blokkene vi har i ``||basic: gjenta for alltid ||``, og flytt de over til ``||functions: nedtelling ||``. 
 
-Endre ``||basic: pause ||``  mellom LED PÅ og AV til 5000 ms. *(Fjern ``||basic: pause ||`` etter ``||pins: skriv digital P0 til 0||``.)*
+Endre ``||basic: pause ||``  mellom LED PÅ og AV til riktig tid.
 
 ```blocks
 function nedtelling () {
     teller = 10
-    for (let indeks = 0; indeks <= 10; indeks++) {
+    for (let index = 0; index < 11; index++) {
         basic.showNumber(teller)
         teller += -1
     }
@@ -118,14 +118,14 @@ nedtelling()
 
 <!-- Del 2.3: -->
 
-## Oppgave 2: Bestemme når nedtelling skal starte
+## Oppgave 2: Bruke knapp A for å starte nedtellingen
 
 ``||functions: Funksjonen nedtelling||`` kjører når vi starter micro:biten. Hvis vi vil at den skal kjøres på nytt, kan vi f.eks. kalle den opp når vi ``||input: trykker på knapp A||``.
 
 ```blocks
 function nedtelling () {
     teller = 10
-    for (let indeks = 0; indeks <= 10; indeks++) {
+    for (let index = 0; index < 11; index++) {
         basic.showNumber(teller)
         teller += -1
     }
@@ -142,7 +142,7 @@ nedtelling()
 
 <!-- Del 3: -->
 
-## Oppgave 3: Skriv til OLED-skjerm @unplugged
+## Oppgave 3: Vis tekst og verdier på OLED-skjerm @unplugged
 
 Nå skal vi se på hvordan vi kan bruke en Kitronik OLED-skjerm for å bedre vise dataene våre. 
 
@@ -180,8 +180,8 @@ For å sørge for at skjermen alltid viser riktig verdi, må vi hele tiden oppda
 ```blocks
 function nedtelling () {
     teller = 10
-    for (let indeks = 0; indeks <= 10; indeks++) {
-        kitronik_VIEW128x64.show(teller, 1)
+    for (let index = 0; index < 11; index++) {
+        basic.showNumber(teller)
         teller += -1
         basic.pause(1000)
         kitronik_VIEW128x64.clear()
@@ -208,9 +208,9 @@ Alle sensorene vi skal koble til CanSat'en, gir oss en analog verdi. Noen av dis
 
 Vi må derfor lære hvordan man konverterer den analoge verdien vi får inn på micro:biten til en spenningsverdi.
 
-For å se at vi får riktige verdier i utregningene våre, skal vi koble et 1,5V batteri til micro:bit. 
+For å se at vi får riktige verdier i utregningene våre, kobler vi til et AA-batteri og sjekker at den gir oss riktig spenning (1,5V). 
 
-Koble pluss (+) til P0 og minus (-) til GND.
+Koble pluss (langt ben) til P0 og minus (kort ben) til GND.
 
 **NB:** Fjern LED-lyset 
 
@@ -261,9 +261,9 @@ basic.forever(function () {
 
 <!-- Del 4.3: -->
 
-## Oppgave 4: Bestemme verdi på Uref
+## Oppgave 4: Lage en ny variabel: Uref
 
-Når vi skal regne ut spenningen vi måler, vil spenningen som micro:bit leverer til sensorene variere om vi får strøm fra USB eller batteri.
+Spenningen som micro:bit leverer til sensorene vi bruker vil variere om den får strøm fra USB eller batteri.
 
 Se tabell under for hva ``||variables: Uref||`` skal være :
 
@@ -286,11 +286,11 @@ Uref = 3.2
 
 ## Oppgave 4: Beregne spenning fra analog verdi
 
-Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å gjøre dette, bruk formelen under, i hint-boksen.
+Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over sensoren. For å forstå formelen vi bruker, se i hint-boksen.
 
 Lage en ny variabel: ``||variables: spenning||``.
 
-Bruk formelen over for å sette ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1024 ) * ``||variables: Uref||``.
+Sett ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1024 ) * ``||variables: Uref||``.
 
 ![Formel_spenning_fra_analogverdi_liten.png](https://i.postimg.cc/YSn2XtQv/Formel_spenning_fra_analogverdi_liten.png)
 
@@ -342,13 +342,13 @@ kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 
 ## Oppgave 4: Runde av spenningsverdi til 2 desimaler
 
-Når du testet koden din, så du kanskje at det ble mange desimaler. Vi har ingen blokk som lar oss direkte avrunde til 2 desimaler. Det vi må gjøre er å lage en funksjon som tar den verdien vår med mange deimaler og returnerer en verdi med 2 desimaler. 
+Nå har spenningsverdien mange desimaler. Vi har ingen blokk som lar oss direkte avrunde til 2 desimaler. Vi må derfor lage en funksjon som vi kan bruke for å avrunde de verdiene vi ønsker. 
 
-Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" på linja over når du lager funksjonen. Endre "tall" til "verdi". 
+Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" på linja over når du lager funksjonen. Endre "tall" til "sensorverdi". Hent frem retur-blokken og sett den inn i funksjonen.
 
-I den nye funksjonen skal vi multiplisere verdien vi henter fra formelen med 100, og deretter ``||math: avrund ||`` ``||variables: spenning||``. Det gir oss et heltall som er 100 ganger for stort. Hvis vi nå deler det nye tallet vårt på 100, vil vi få riktig tall, og ha flyttet kommategnet 2 plasser oppover slik at vi får en verdi med 2 desimaler.
+I returblokken skal vi multiplisere sensorverdien med 100, og deretter ``||math: avrund ||`` dette. Det gir oss et heltall som er 100 ganger for stort. Hvis vi nå deler det nye tallet vårt på 100, vil vi få riktig antall desimaler.
 
-Kjør ``||functions: avrund||`` fra der vi regner ut verdien til ``||variables: spenning||``. Verdien fra funksjonen skal returneres tilbake til formelen vår.
+Kjør funksjonen ``||functions: avrund||`` i blokken der vi regner ut ``||variables: spenning||``. 
 
 ```blocks
 let spenning = 0
@@ -362,7 +362,7 @@ function voltmeter () {
     kitronik_VIEW128x64.show("Spenning: " + spenning + " V", 2)
     basic.pause(500)
 }
-function avrund (verdi: number) {
+function avrund (sensorverdi: number) {
     return Math.round(verdi * 100) / 100
 }
 ```
