@@ -290,7 +290,7 @@ Vi har nå fått en analog verdi vi kan bruke for å regne ut spenningen over se
 
 Lage en ny variabel: ``||variables: spenning||``.
 
-Sett ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1024 ) * ``||variables: Uref||``.
+Sett ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1023 ) * ``||variables: Uref||``.
 
 ![Formel_spenning_fra_analogverdi_liten.png](https://i.postimg.cc/YSn2XtQv/Formel_spenning_fra_analogverdi_liten.png)
 
@@ -300,7 +300,7 @@ let analogVerdi = 0
 let spenning = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
-    spenning = analogVerdi / 1024 * Uref
+    spenning = analogVerdi / 1023 * Uref
     kitronik_VIEW128x64.clear()
     kitronik_VIEW128x64.show("Analog: " + analogVerdi, 1)
     basic.pause(500)
@@ -326,7 +326,7 @@ let analogVerdi = 0
 let Uref = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
-    spenning = analogVerdi / 1024 * Uref
+    spenning = analogVerdi / 1023 * Uref
     kitronik_VIEW128x64.clear()
     kitronik_VIEW128x64.show("Analog: " + analogVerdi, 1)
     kitronik_VIEW128x64.show("Spenning: " + spenning + " V", 2)
@@ -356,7 +356,7 @@ let analogVerdi = 0
 let Uref = 0
 function voltmeter () {
     analogVerdi = pins.analogReadPin(AnalogPin.P0)
-    spenning = avrund(analogVerdi / 1024 * Uref)
+    spenning = avrund(analogVerdi / 1023 * Uref)
     kitronik_VIEW128x64.clear()
     kitronik_VIEW128x64.show("Analog: " + analogVerdi, 1)
     kitronik_VIEW128x64.show("Spenning: " + spenning + " V", 2)
