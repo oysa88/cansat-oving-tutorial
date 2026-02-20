@@ -292,7 +292,7 @@ Lage en ny variabel: ``||variables: spenning||``.
 
 Sett ``||variables: spenning||`` til ( ``||variables: analogVerdi||`` / 1023 ) * ``||variables: Uref||``.
 
-![Formel_spenning_fra_analogverdi_liten.png](https://i.postimg.cc/YSn2XtQv/Formel_spenning_fra_analogverdi_liten.png)
+![Formel-spenning-fra-analogverdi-liten-kopi.png](https://i.postimg.cc/Nfqbf0g6/Formel-spenning-fra-analogverdi-liten-kopi.png)
 
 
 ```blocks
