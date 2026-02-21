@@ -4,13 +4,16 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*"
+        "microphone": "*",
+        "barometric-height": "github:oysa88/barometric-height#c57cd9d3aaf28d8917f62dde04fe08187f3e5e81",
+        "CanSat sensorpakke": "github:oysa88/cansat-sensorpakke#a7f32e55e7fe161f63692ed0e195a44a28477cfb"
     },
     "files": [
         "main.blocks",
         "main.ts",
         "README.md",
-        "cansat-tutorial.md"
+        "cansat-tutorial.md",
+        "cansat-primaer.md"
     ],
     "testFiles": [
         "test.ts"

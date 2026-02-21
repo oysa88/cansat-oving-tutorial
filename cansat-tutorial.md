@@ -1,4 +1,4 @@
-# CanSat Øvinger Tutorial
+# CanSat Øvingsoppgaver Tutorial
 
 ### @diffs true
 ### @unifiedToolbox true
@@ -6,10 +6,9 @@
 <!-- Del 1: -->
 
 ## CanSat Øvingsoppgaver @unplugged
+I denne veiledningen skal vi gå gjennom grunnleggende funksjoner som dere får bruk for når dere skal programmere en CanSat.
 
-I denne veiledningen skal vi gå gjennom grunnleggende funksjoner som dere får bruk for når dere skal programmere en CanSat. 
-
-**Oppgaver dere skal løse er: **
+**Oppgaver dere skal løse er:**
 
 **1)** Få et LED-lys til å blinke ved koble det til pins på micro:bit
 
