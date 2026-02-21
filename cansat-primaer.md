@@ -95,7 +95,7 @@ For å ta i bruk OLED-skjermen, koble den til mellom CanSat og micro:bit.
 
 Fra biblioteket ``||kitronik_VIEW128x64: OLED-skjerm||``, hent blokkene ``||kitronik_VIEW128x64: skru AV OLED-skjerm||`` og ``||kitronik_VIEW128x64: Sett font størrelse til Normal||``. 
 
-Plasser begge blokkene inn i ``||basic: ved start||``, og sett OLED-skjerm til ``||kitronik_VIEW128x64: PÅ||```.
+Plasser begge blokkene inn i ``||basic: ved start||``, og sett OLED-skjerm til ``||kitronik_VIEW128x64: PÅ||``.
 
 ```blocks
 kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
