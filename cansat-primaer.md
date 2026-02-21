@@ -516,7 +516,7 @@ Inni funksjonen ``||functions: lagre_data||``: Finn frem blokken ``||datalogger:
 
 Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til flere kolonner, trykk på pluss(+)-knappen.
 
-I kolonne, skriv hva du samler. I verdi, plasser tilhørende variabel.
+I kolonne, skriv hvilke data som samles. I verdi, plasser tilhørende variabel.
 
 ```blocks
 function lagre_data () {
@@ -546,18 +546,25 @@ Du bør nå se dataene dine her!
 
 Vi skal nå sette opp det som skal inn i funksjonen ``||functions: vise_data_PC||``.
 
-Finn frem blokken ``||serial: logg data||`` fra biblioteket ``||datalogger: datalogger||``.
+Finn frem blokken ``||serial: serieport skriv verdi||`` fra biblioteket ``||serial: serieport||``.
 
-Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til flere kolonner, trykk på pluss(+)-knappen.
+Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til en blokk for hver variabel du skal vise.
 
-I kolonne, skriv hva du samler. I verdi, plasser tilhørende variabel.
+I stedet for "x", skriv hvilke data som samles. Og plasser tilhørende variabel inn der 0 står.
 
+```blocks
+function vise_data_PC () {
+    serial.writeValue("Teller", teller)
+    serial.writeValue("Temperatur (NTC)", temperatur_NTC)
+    serial.writeValue("Trykk", trykk)
+}
+```
 
 <!-- Del 10: -->
 
 ## Ferdig! 
 
-Gratulerer! Du har nå løst alle oppgavene du trenger for å kunne programmere en fullstendig versjon av CanSat med bruk av micro:bit!
+Gratulerer! Du har nå en fungerende primær-oppdrag for CanSat med bruk av micro:bit!
 
 ```blocks
 input.onPinPressed(TouchPin.P0, function () {
@@ -818,6 +825,16 @@ basic.forever(function () {
 control.inBackground(function () {
 
 })
+
+datalogger.onLogFull(function () {
+	
+})
+datalogger.log(datalogger.createCV("", 0))
+datalogger.setColumnTitles("")
+datalogger.deleteLog()
+datalogger.includeTimestamp(FlashLogTimeStampFormat.None)
+datalogger.mirrorToSerial(false)
+datalogger.createCV("", null)
 ```
 
 ```package
