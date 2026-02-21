@@ -5,6 +5,10 @@
 
 * åpne https://makecode.microbit.org/#tutorial:github:oysa88/cansat-oving-tutorial/cansat-tutorial
 
+## Kjør CanSat primær-oppdrag
+
+* åpne https://makecode.microbit.org/#tutorial:github:oysa88/cansat-oving-tutorial/cansat-primaer
+
 ## Bruk som utvidelse
 
 Dette kodeområdet kan bli lagt til som en **utvidelse** i MakeCode.
