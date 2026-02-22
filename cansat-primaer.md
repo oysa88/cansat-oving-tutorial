@@ -5,7 +5,7 @@
 
 <!-- Del 1: -->
 
-## CanSat Øvingsoppgaver @unplugged
+## CanSat primæroppdrag @unplugged
 
 I denne veiledningen skal vi programmere primæroppdraget til CanSat. Når du er ferdig, vil du ha en fungerende CanSat som kan gjøre målingene vi trenger.
 
