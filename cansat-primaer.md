@@ -41,10 +41,10 @@ For å gjøre koden vår så lett som mulig å lage, bør vi starte med å struk
 
 #### Vi skal lage 4 ``||functions: funksjoner||`` i koden vår:
 
-- En som samler data: f.eks. samle_data
-- En for å vise dataene på OLED-skjerm: f.eks. vise_data_OLED
-- En for å vise dataene på PC-skjerm: f.eks. vise_data_PC
-- En som lar meg lagre dataene på internminne til micro:bit: f.eks. lagre_data
+- En som samler data: f.eks. **samle_data**
+- En for å vise dataene på OLED-skjerm: f.eks. **vise_data_OLED**
+- En for å vise dataene på PC-skjerm: f.eks. **vise_data_PC**
+- En som lar meg lagre dataene på internminne til micro:bit: f.eks. **lagre_data**
 
 Alle funksjonene skal kjøres fra ``||basic: gjenta for alltid||``. Legg også inn en ``||basic: pause||`` på 500ms. etter at alle funksjonene har kjørt.
 
@@ -106,7 +106,7 @@ kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 
 ## Oppgave 2 - Vise analogverdi fra NTC på OLED-skjerm
 
-Inni funksjonen ``||functions: vis_data_OLED||`` skal vi kjøre kodene for alt vi vil vise på OLED-skjermen vår. 
+Inni funksjonen ``||functions: vise_data_OLED||`` skal vi kjøre kodene for alt vi vil vise på OLED-skjermen vår. 
 
 For å vise noe på skjermen, bruk blokken ``||kitronik_VIEW128x64: vis ||``. Trykk på pluss(+) for å utvide blokken, og bestemme hvilken linje teksten skal skrives på:
 
