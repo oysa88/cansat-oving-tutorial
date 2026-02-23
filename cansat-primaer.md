@@ -9,28 +9,28 @@
 
 I denne veiledningen skal vi programmere primæroppdraget til CanSat. Når du er ferdig, vil du ha en fungerende CanSat som kan gjøre målingene vi trenger.
 
-**Det som må gjøres er: **
+### **Det som må gjøres er: **
 
-**1)** Bygge opp grunnstruktur på koden vår
+#### **1)** Bygge opp grunnstruktur på koden vår
 
-**2)** Samle inn analogverdier fra NTC og vise på OLED-skjerm
+#### **2)** Samle inn analogverdier fra NTC og vise på OLED-skjerm
 
-**3)** Konvertere analogverdi fra NTC til spenningsverdi
+#### **3)** Konvertere analogverdi fra NTC til spenningsverdi
 
-**4)** Konvertere spenningsverdi fra NTC til lesbar temperaturverdi
+#### **4)** Konvertere spenningsverdi fra NTC til lesbar temperaturverdi
 
-**5)** Runde av verdiene våre for å ikke få for mange desimaler
+#### **5)** Runde av verdiene våre for å ikke få for mange desimaler
 
-**6)** Hente trykk-data fra BME280
+#### **6)** Hente trykk-data fra BME280
 
-**7)** Beregne CanSat'ens høyde over bakken 
+#### **7)** Beregne CanSat'ens høyde over bakken 
 
-**8)** Lagre dataene på micro:bit
+#### **8)** Logge og lagre dataene på micro:bit
 
-**9)** Overføre dataene fra CanSat til en PC, og vise de på skjermen
+#### **9)** Overføre dataene fra CanSat til en PC, og vise de på skjermen
 
 
-#### **Lykke til!**
+### **Lykke til!**
 
 
 <!-- Del 1.1: -->
@@ -39,7 +39,7 @@ I denne veiledningen skal vi programmere primæroppdraget til CanSat. Når du er
  
 For å gjøre koden vår så lett som mulig å lage, bør vi starte med å strukturere koden vår.
 
-Vi skal lage 4 ``||functions: funksjoner||`` i koden vår:
+#### Vi skal lage 4 ``||functions: funksjoner||`` i koden vår:
 
 - En som samler data: f.eks. samle_data
 - En for å vise dataene på OLED-skjerm: f.eks. vise_data_OLED
@@ -167,7 +167,7 @@ For å se at vi får riktige verdier i utregningene våre, skal vi koble til et 
 
 Koble pluss (rød ledning) til P0 og minus (sort ledning) til GND på CanSat.
 
-**Legge til bilde av oppkobling**
+![Oppkobling-AA-batteri-liten.jpg](https://i.postimg.cc/50fKhZh6/Oppkobling-AA-batteri-liten.jpg)
 
 ![batteriholder-1-5V.webp](https://i.postimg.cc/VkFHxBLV/batteriholder-1-5V.webp)
 
