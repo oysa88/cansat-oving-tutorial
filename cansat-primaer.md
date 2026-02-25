@@ -510,9 +510,9 @@ Alle dataene vi samler skal lagres i internminne til micro:bit.
 
 <!-- Del 8.2: -->
 
-## Oppgave 8 - Sette opp datalogger på micro:bit
+## Oppgave 8 - Sette opp datalogging på micro:bit
 
-Inni funksjonen ``||functions: lagre_data||``: Finn frem blokken ``||datalogger: logg data||`` fra biblioteket ``||datalogger: datalogger||``.
+Inni funksjonen ``||functions: lagre_data||``: Finn frem blokken ``||datalogging: logg data||`` fra biblioteket ``||datalogging: datalogging||``.
 
 Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til flere kolonner, trykk på pluss(+)-knappen.
 
@@ -520,10 +520,10 @@ I kolonne, skriv hvilke data som samles. I verdi, plasser tilhørende variabel.
 
 ```blocks
 function lagre_data () {
-    datalogger.log(
-    datalogger.createCV("Teller", teller),
-    datalogger.createCV("Temperatur (NTC)", temperatur_NTC),
-    datalogger.createCV("Trykk", trykk)
+    datalogging.log(
+    datalogging.createCV("Teller", teller),
+    datalogging.createCV("Temperatur (NTC)", temperatur_NTC),
+    datalogging.createCV("Trykk", trykk)
     )
 }
 ``` 
@@ -826,20 +826,20 @@ control.inBackground(function () {
 
 })
 
-datalogger.onLogFull(function () {
+datalogging.onLogFull(function () {
 	
 })
-datalogger.log(datalogger.createCV("", 0))
-datalogger.setColumnTitles("")
-datalogger.deleteLog()
-datalogger.includeTimestamp(FlashLogTimeStampFormat.None)
-datalogger.mirrorToSerial(false)
-datalogger.createCV("", null)
+datalogging.log(datalogging.createCV("", 0))
+datalogging.setColumnTitles("")
+datalogging.deleteLog()
+datalogging.includeTimestamp(FlashLogTimeStampFormat.None)
+datalogging.mirrorToSerial(false)
+datalogging.createCV("", null)
 ```
 
 ```package
 oled-skjerm=github:oysa88/oled-skjerm
 BME280=github:oysa88/BME280
 barometric-height=github:oysa88/barometric-height
-datalogger=github:oysa88/datalogger
+datalogging=github:oysa88/datalogging
 ```
