@@ -4,8 +4,7 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*",
-        "barometric-height": "github:oysa88/barometric-height#c57cd9d3aaf28d8917f62dde04fe08187f3e5e81"
+        "microphone": "*"
     },
     "files": [
         "main.blocks",
