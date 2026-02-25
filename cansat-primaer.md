@@ -842,8 +842,4 @@ oled-skjerm=github:oysa88/oled-skjerm
 BME280=github:oysa88/BME280
 barometric-height=github:oysa88/barometric-height
 datalogger=github:oysa88/datalogger
-sgp30=github:oysa88/sgp30
-gps-neo-6m=github:oysa88/gps-neo-6m
-gy91=github:oysa88/gy91
-e32-radio=github:oysa88/e32-radio
 ```
