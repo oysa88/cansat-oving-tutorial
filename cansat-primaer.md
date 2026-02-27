@@ -343,7 +343,6 @@ function vise_data_OLED () {
     kitronik_VIEW128x64.show("Temperatur (NTC): " + avrund(temperatur_NTC) + " C", 3)
 }
 
-
 ```
 
 **Last ned koden på micro:bit på CanSat, og sjekk at verdiene på OLED-skjermen vises kun med 2 desimaler.**
