@@ -308,7 +308,6 @@ Hent en ny blokk av ``||kitronik_VIEW128x64: vis ||``. Plasser ``||text: sett sa
 
 **Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Sjekk om temperaturverdien gir mening. Det gjør ikke noe om den ikke gjør det.
 
-
 ```blocks
 function vise_data_OLED () {
     kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
@@ -316,6 +315,8 @@ function vise_data_OLED () {
     kitronik_VIEW128x64.show("Temperatur (NTC): " + temperatur_NTC + " C", 3)
 }
 ```
+
+
 <!-- Del 5.1: -->
 
 ## Oppgave 5 - Runde av verdier til 2 desimaler
@@ -325,6 +326,7 @@ Dere har sikkert lagt merke til at verdiene våre har mange desimaler. Vi har in
 Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" på linja over når du lager funksjonen. Dette gjøres i vinduet du får opp når du lager funksjonen. Endre "tall" til "sensorverdi". Hent frem ``||functions: return||`` og sett den inn i funksjonen.
 
 I ``||functions: returner||``-blokken skal vi multiplisere ``||variables: sensorverdien||`` med 100, og deretter ``||math: avrund ||`` dette. Det gir oss et heltall som er 100 ganger for stort. Hvis vi nå deler det nye tallet vårt på 100, vil vi få riktig antall desimaler.
+
 
 <!-- Del 5.2: -->
 
