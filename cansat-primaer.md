@@ -316,7 +316,7 @@ function vise_data_OLED () {
     kitronik_VIEW128x64.show("Temperatur (NTC): " + temperatur_NTC + " C", 3)
 }
 ```
-<!-- Del 4.6: -->
+<!-- Del 5.1: -->
 
 ## Oppgave 5 - Runde av verdier til 2 desimaler
 
@@ -326,18 +326,26 @@ Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" på
 
 I ``||functions: returner||``-blokken skal vi multiplisere ``||variables: sensorverdien||`` med 100, og deretter ``||math: avrund ||`` dette. Det gir oss et heltall som er 100 ganger for stort. Hvis vi nå deler det nye tallet vårt på 100, vil vi få riktig antall desimaler.
 
-Endre i funksjonen ``||functions: vise_data_OLED||`` slik at ``||variables: spenning_NTC||`` og ``||variables: temperatur_NTC||`` erstattes med at ``||functions: avrund||`` kjøres på disse verdiene. Da må ``||variables: spenning_NTC||`` og ``||variables: temperatur_NTC||`` plasseres inn i ``||functions: kjør avrund||`` som så settes inn i ``||text: sett sammen||``blokkene som allerede er der. 
+<!-- Del 5.2: -->
+
+## Oppgave 5 - Vise avrundede verdier på OLED-skjerm
+
+For å få 2 desimaler på verdiene fra CanSaten, kjør ``||functions: avrund||`` inni der vi skriver variabelene ``||variables: spenning_NTC||`` og ``||variables: temperatur_NTC||`` i ``||functions: vise_data_OLED||``.
+
+Se hint om du lurer på hvordan dette ser ut. 
 
 ```blocks
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-    kitronik_VIEW128x64.show("Spenning (NTC): " + avrund(spenning_NTC) + " V", 2)
-    kitronik_VIEW128x64.show("Temperatur (NTC): " + avrund(temperatur_NTC) + " C", 3)
-}
 function avrund (sensorverdi: number) {
     return Math.round(sensorverdi * 100) / 100
 }
+
+function vise_data_OLED () {
+    kitronik_VIEW128x64.show("Temperatur (NTC): " + avrund(temperatur_NTC) + " C", 3)
+}
+
+
 ```
+
 **Last ned koden på micro:bit på CanSat, og sjekk at verdiene på OLED-skjermen vises kun med 2 desimaler.**
 
 
