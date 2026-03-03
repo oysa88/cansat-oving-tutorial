@@ -11,7 +11,8 @@
         "main.ts",
         "README.md",
         "cansat-tutorial.md",
-        "cansat-primaer.md"
+        "cansat-primaer.md",
+        "cansat-primaer-test.md"
     ],
     "testFiles": [
         "test.ts"

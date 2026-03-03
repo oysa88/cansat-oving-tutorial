@@ -9,6 +9,10 @@
 
 * åpne https://makecode.microbit.org/#tutorial:github:oysa88/cansat-oving-tutorial/cansat-primaer
 
+## Kjør CanSat primær-oppdrag TEST
+
+* åpne https://makecode.microbit.org/#tutorial:github:oysa88/cansat-oving-tutorial/cansat-primaer-test
+
 ## Bruk som utvidelse
 
 Dette kodeområdet kan bli lagt til som en **utvidelse** i MakeCode.
