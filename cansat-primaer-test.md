@@ -50,14 +50,9 @@ Alle funksjonene skal kjøres fra ``||basic: gjenta for alltid||``. Legg også i
 
 ```blocks
 function samle_data () {}
-function vise_data_OLED () {}
-function vise_data_PC () {}
-function lagre_data () {}
+}
 basic.forever(function () {
     samle_data()
-    vise_data_OLED()
-    vise_data_PC()
-    lagre_data()
     basic.pause(500)
 })
 
@@ -82,10 +77,10 @@ function samle_data () {
 
 ## Oppgave 2 - Vis tekst og verdier på OLED-skjerm @unplugged
 
-Kitronik OLED-skjerm lar oss vise verdiene våre mye mer effektivt enn skjermen på micro:biten: 
+Kitronik OLED-skjerm lar oss vise verdiene mer effektivt enn skjermen på micro:biten. 
 
 For å ta i bruk OLED-skjermen, koble den til mellom CanSat og micro:bit.
-
+Pass på at micro:bit settes oppi riktig vei, riktig pin mot riktig pin og videre at OLED-skjermen plasseres riktig til kretskortet, med skjermen vendt ut fra kretskortet. 
 ![OLED_Kitronik_liten.jpg](https://i.postimg.cc/mD2ry8kJ/OLED_Kitronik_liten.jpg)
 
 
@@ -106,7 +101,7 @@ kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 
 ## Oppgave 2 - Vise analogverdi fra NTC på OLED-skjerm
 
-Inni funksjonen ``||functions: vise_data_OLED||`` skal vi kjøre kodene for alt vi vil vise på OLED-skjermen vår. 
+Inni funksjonen ``||functions: vise_data_OLED||`` skal vi kjøre kodene for alt vi vil vise på OLED-skjermen. 
 
 For å vise noe på skjermen, bruk blokken ``||kitronik_VIEW128x64: vis ||``. Trykk på pluss(+) for å utvide blokken, og bestemme hvilken linje teksten skal skrives på:
 
@@ -130,40 +125,16 @@ Vi må sørge for at skjermen alltid er oppdatert og viser riktig tekst og verdi
 
 Plasser blokken øverst inni ``||basic: gjenta for alltid ||``.
 
-```blocks
-function samle_data () {
-    analogverdi_NTC = pins.analogReadPin(AnalogReadWritePin.P10)
-}
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-}
-function lagre_data () {
-	
-}
-function vise_data_PC () {
-	
-}
-let analogverdi_NTC = 0
-basic.forever(function () {
-    kitronik_VIEW128x64.clear()
-    samle_data()
-    vise_data_OLED()
-    vise_data_PC()
-    lagre_data()
-    basic.pause(500)
-})
-```
-
 
 <!-- Del 3.1: -->
 
 ## Oppgave 3 - Konvertere analogverdi fra NTC til en lesbar temperaturverdi @unplugged
 
-Den analoge verdien vi leser fra pin P10, skal vi regne om til en spenningsverdi, og så videre til en faktisk temperaturverdien. 
+Den analoge verdien vi leser fra pin P10, skal vi regne om til en spenningsverdi, og så videre til en faktisk temperaturverdi. 
 
 Vi må derfor lære hvordan man konverterer en analog verdi, som leses av micro:biten, til en spenningsverdi.
 
-For å se at vi får riktige verdier i utregningene våre, skal vi koble til et AA-batteri til micro:biten og sjekke at formelen gir oss riktig spenning (1,5V). 
+For å se at vi får riktige verdier i utregningene våre, skal vi koble et AA-batteri til micro:biten og sjekke at formelen gir oss riktig spenning (1,5V). 
 
 Koble pluss (rød ledning) til P0 og minus (sort ledning) til GND på CanSat.
 
@@ -180,18 +151,12 @@ Start med å lage en ny funksjon: ``||functions: batteritester||``. Denne funksj
 
 Inni ``||functions: batteritester||`` skal vi lage en ny variabel: ``||variables: analogverdi_batteri||``. Sett ``||variables: analogverdi_batteri||`` til å ``||pins: lese analog verdi fra P0||``.
 
-```blocks
-let analogverdi_batteri = 0
-function batteritester () {
-    analogverdi_batteri = pins.analogReadPin(AnalogPin.P0)
-}
-```
 
 <!-- Del 3.3: -->
 
 ## Oppgave 3 - Lage en ny variabel: Uref
 
-Spenningen som micro:bit leverer til sensorene vi bruker vil variere om den får strøm fra USB eller batteri.
+Spenningen som micro:bit leverer til sensorene vil variere om den får strøm fra USB eller batteri.
 
 Se tabell under for hva ``||variables: Uref||`` skal være :
 
@@ -201,7 +166,7 @@ Se tabell under for hva ``||variables: Uref||`` skal være :
 
 Lage en ny variabel: ``||variables: Uref||``.
 
-``||variables: Uref||`` skal settes inn i ``||basic: ved start||``, og sett den til verdien bestemt i tabellen over.
+``||variables: Uref||`` skal settes inn i ``||basic: ved start||``, og settes til verdien bestemt i tabellen over.
 
 
 ```blocks
@@ -216,9 +181,9 @@ Uref = 3.2
 
 ## Oppgave 3 - Beregne spenningen til batteri og NTC
 
-De lagrede analogverdiene til både batteriet og NTC'en skal bruk til å beregne spenningen deres. For å forstå formelen vi bruker, se i hint-boksen.
+De lagrede analogverdiene til både batteriet og NTC'en skal brukes til å beregne spenningen deres. For å forstå formelen vi bruker, se hint-boksen (lyspæren).
 
-Lage to nye variabel: ``||variables: spenning_NTC||`` og ``||variables: spenning_batteri||``.
+Lag to nye variabler: ``||variables: spenning_NTC||`` og ``||variables: spenning_batteri||``.
 
 - Sett ``||variables: spenning_NTC||`` til ( ``||variables: analogverdi_NTC||`` / 1023 ) * ``||variables: Uref||``. (Plasseres i funksjonen ``||functions: samle_data||``)
 - Sett ``||variables: spenning_batteri||`` til ( ``||variables: analogverdi_batteri||`` / 1023 ) * ``||variables: Uref||``. (Plasseres i funksjonen ``||functions: batteritester||``)
@@ -228,13 +193,8 @@ Lage to nye variabel: ``||variables: spenning_NTC||`` og ``||variables: spenning
 
 ```blocks
 let analogverdi_batteri = 0
-let analogverdi_NTC = 0
 let spenning_batteri = 0
-let spenning_NTC = 0
-function samle_data () {
-    analogverdi_NTC = pins.analogReadPin(AnalogPin.P10)
-    spenning_NTC = analogverdi_NTC / 1023 * Uref
-}
+
 function batteritester () {
     analogverdi_batteri = pins.analogReadPin(AnalogPin.P0)
     spenning_batteri = analogverdi_batteri / 1023 * Uref
@@ -252,17 +212,10 @@ Hent to nye blokker av ``||kitronik_VIEW128x64: vis ||``. Plasser ``||text: sett
 
 - Inni den første ``||kitronik_VIEW128x64: vis ||``: I den første ruta til ``||text: sett sammen ||``, skriv "Spenning (NTC): ". I den andre ruta, sette inn variabelen ``||variables: spenning_NTC||``. Utvid til en tredje rute hvor du skriver " V". Skriv dette på linje 2.
 - Inni den andre ``||kitronik_VIEW128x64: vis ||``: I den første ruta til ``||text: sett sammen ||``, skriv "Spenning (batteri): ". I den andre ruta, sette inn variabelen ``||variables: spenning_batteri||``. Utvid til en tredje rute hvor du skriver " V". Skriv dette på linje 3.
-- 
 
 **Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Du kan forvente en spenning rundt 1,5V fra batteriet.
 
-```blocks
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-    kitronik_VIEW128x64.show("Spenning (NTC): " + spenning_NTC + " V", 2)
-    kitronik_VIEW128x64.show("Spenning (batteri): " + spenning_batteri + " V", 3)
-}
-```
+
 
 <!-- Del 3.6: -->
 
@@ -278,7 +231,7 @@ Hvis vi får en spenning på ca. 1,5V fra batteriet, kan vi konkludere med at ut
 
 ## Oppgave 4 - Regne om NTC spenningsverdi til temperaturverdi
 
-For å få så nøyaktig temperaturverdi fra NTC'en, må vi gjøre en kalibrering. Det skal vi gjøre etterpå. Så foreløpig skal vi bruke formelen under:
+For å få så nøyaktig temperaturverdi fra NTC'en, må vi gjøre en kalibrering. Det skal vi gjøre etterpå. Foreløpig skal vi bruke formelen under, som altså ikke er riktig for deres NTC:
 
 Inne ``||functions: samle_data||``, lage en ny variabel: ``||variables: temperatur_NTC||``.
 
@@ -308,25 +261,23 @@ Hent en ny blokk av ``||kitronik_VIEW128x64: vis ||``. Plasser ``||text: sett sa
 
 **Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Sjekk om temperaturverdien gir mening. Det gjør ikke noe om den ikke gjør det.
 
-```blocks
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-    kitronik_VIEW128x64.show("Spenning (NTC): " + spenning_NTC + " V", 2)
-    kitronik_VIEW128x64.show("Temperatur (NTC): " + temperatur_NTC + " C", 3)
-}
-```
-
 
 <!-- Del 5.1: -->
 
 ## Oppgave 5 - Runde av verdier til 2 desimaler
 
-Dere har sikkert lagt merke til at verdiene våre har mange desimaler. Vi har ingen blokk som lar oss direkte avrunde til 2 desimaler. Vi må derfor lage en funksjon som vi kan bruke for å avrunde de verdiene vi ønsker. 
+Du har sikkert lagt merke til at verdiene har mange desimaler. Vi har ingen blokk som lar oss direkte avrunde til 2 desimaler. Vi må derfor lage en funksjon som vi kan bruke for å avrunde de verdiene vi ønsker. 
 
-Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" på linja over når du lager funksjonen. Dette gjøres i vinduet du får opp når du lager funksjonen. Endre "tall" til "sensorverdi". Hent frem ``||functions: return||`` og sett den inn i funksjonen.
+Lag en ny funksjon: ``||functions: avrund||``. Legg til parameteret "nummer" til funksjonen. Dette gjøres i vinduet du får opp når du lager funksjonen. Endre "tall" til "sensorverdi". Hent frem ``||functions: return||`` og sett den inn i funksjonen.
 
 I ``||functions: returner||``-blokken skal vi multiplisere ``||variables: sensorverdien||`` med 100, og deretter ``||math: avrund ||`` dette. Det gir oss et heltall som er 100 ganger for stort. Hvis vi nå deler det nye tallet vårt på 100, vil vi få riktig antall desimaler.
 
+```blocks
+function avrund (sensorverdi: number) {
+    return Math.round(sensorverdi * 100) / 100
+}
+
+```
 
 <!-- Del 5.2: -->
 
@@ -360,8 +311,8 @@ function vise_data_OLED () {
 
 Denne sensoren kan måle:
 
-- Temperatur
 - Trykk
+- Temperatur
 - Luftfuktighet
 - Duggpunkt
 
@@ -377,18 +328,14 @@ For å få BME280 til å snakke med CanSat, skal vi sette opp to blokken inn i `
 - ``||BME280: Skru PÅ||``
 - ``||BME280: Sett adresse 0x76||``
 
-Inne ``||functions: samle_data||``, sett opp en ny variabel: ``||variables: trykk||``. Sett ``||variables: trykk||`` til ``||BME280: trykk||`` (fra biblioteket BME280).
+Lag en ny variabel ``||variables: trykk||``, og sett den inn i ``||functions: samle_data||``. Sett ``||variables: trykk||`` til ``||BME280: trykk||``.
 
 ```blocks
-kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
-kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
-Uref = 3.2
+
 BME280.PowerOn()
 BME280.Address(BME280_I2C_ADDRESS.ADDR_0x76)
+
 function samle_data () {
-    analogverdi_NTC = pins.analogReadPin(AnalogPin.P10)
-    spenning_NTC = analogverdi_NTC / 1023 * Uref
-    temperatur_NTC = 39.7956 * spenning_NTC - 42.7499
     trykk = BME280.pressure(BME280_P.Pa)
 }
 ```
@@ -404,28 +351,16 @@ I den første ruta, skriv "Trykk: ". I den andre ruta, sette inn ``||variables: 
 **Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Forventet trykk ligger rundt 100 000 Pa.
 
 
-```blocks
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-    kitronik_VIEW128x64.show("Spenning (NTC): " + avrund(spenning_NTC) + " V", 2)
-    kitronik_VIEW128x64.show("Temperatur (NTC): " + avrund(temperatur_NTC) + " C", 3)
-    kitronik_VIEW128x64.show("Trykk: " + trykk + " Pa", 4)
-}
-function avrund (sensorverdi: number) {
-    return Math.round(sensorverdi * 100) / 100
-}
-```
-
 <!-- Del 7: -->
 
 ## Oppgave 7 - Beregne høyden til CanSat over bakken @unplugged
 
-For å beregne høyden CanSat har over bakken, skal vi bruke formelen under.
+For å beregne høyden CanSaten har over bakken, kan vi bruke formelen under.
 
 ![Regne_ut_høyde_i_forhold_til_trykk_liten_200.png](https://i.postimg.cc/6pygnRB4/Regne_ut_høyde_i_forhold_til_trykk_liten_200.png)
 
 - **h:**  Beregnet høyde i meter
-- **h1:** Referansehøyde i meter (starthøyde er 0 eller m.o.h.)
+- **h1:** Referansehøyde i meter (starthøyden er typisk 0 eller m.o.h.)
 - **T:**  Temperatur i Kelvin (``||variables: temperatur_NTC||`` + 273,15)
 - **T1:** Referansetemperatur ved referansehøyden h1
 - **R:**  Den spesifikke gasskonstant 287,06 J/kg K
@@ -463,13 +398,15 @@ Vi har en egen blokk som gjør denne utregningen for oss.
 
 Lag en ny variabel: ``||variables: høyde||``. Sett den inn i funksjonen ``||functions: samle_data||``.
 
-Plasser blokken fra biblioteket ``||barometric-height: Høydeberegning||``.
+Plasser blokken fra biblioteket ``||barometric-height: Høydeberegning||`` inn i ``||basic: ved start||``.
 
 Vi må plassere disse variablene inn i blokken:
 
 - Inni ruten p: Plasser variabelen ``||variables: trykk||``
 - Inni ruten p1: Plasser variabelen ``||variables: trykk_1||``
 - Inni ruten T1: Plasser variabelen ``||variables: temperatur_NTC_1||`` ``||math: + 273,15||``
+
+Se hint for hvordan denne blokken brukes.
 
 ```blocks
 let høyde = høydeberegning.barometricHeight(
@@ -493,20 +430,10 @@ I den første ruta, skriv "Høyde: ". I den andre ruta, sette inn ``||variables:
 
 For å få 2 desimaler, kjør ``||functions: avrund||`` inni der vi skriver variabelen ``||variables: høyde||``.
 
-**Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Sjekk om høydemålingen gir mening. Viktig å trykke på knapp A på micro:bit for nullstille høyden.
+**Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Sjekk om høydemålingen gir mening. 
+Viktig å trykke på knapp A på micro:bit for nullstille høyden.
 
-```blocks
-function vise_data_OLED () {
-    kitronik_VIEW128x64.show("Analog (NTC): " + analogverdi_NTC, 1)
-    kitronik_VIEW128x64.show("Spenning (NTC): " + avrund(spenning_NTC) + " V", 2)
-    kitronik_VIEW128x64.show("Temperatur (NTC): " + avrund(temperatur_NTC) + " C", 3)
-    kitronik_VIEW128x64.show("Trykk: " + trykk + " Pa", 4)
-    kitronik_VIEW128x64.show("Høyde: " + avrund(høyde) + " m", 5)
-}
-function avrund (sensorverdi: number) {
-    return Math.round(sensorverdi * 100) / 100
-}
-```
+
 
 <!-- Del 8.1: -->
 
@@ -514,29 +441,51 @@ function avrund (sensorverdi: number) {
 
 ![internminne_til_micro:bit](https://cdn.sanity.io/images/ajwvhvgo/production/759979022f4dd381418c793e73b9fea8a01deb26-800x423.png?q=95)
 
-Alle dataene vi samler skal lagres i internminne til micro:bit.
-
+Alle dataene vi samler skal lagres i internminnet til micro:bit.
 
 <!-- Del 8.2: -->
 
+## Oppgave 8 - Lage en teller for å holde oversikt i dataene
+
+Når vi logger data er det fint å nummerere dataene slik at det er lettere å finne frem og systematisere de senere. 
+Dette gjør man gjerne ved å lage en telle-variabel.
+
+Lag en ny variabel ``||variables: teller||``. Sett den til 0 og plasser den i ``||basic: ved start||``. 
+Sett blokken for å endre variablen teller inn i ``||basic: gjenta for alltid||`` (se hint), etter alle funksjonene er kjørt. Da vil denne variablen endres med 1 for hver gang datainnsamlingen skjer.
+
+```blocks
+
+basic.forever(function () {
+    teller += 1
+})
+
+```
+
+<!-- Del 8.3: -->
+
 ## Oppgave 8 - Sette opp datalogging på micro:bit
 
-Inni funksjonen ``||functions: lagre_data||``: Finn frem blokken ``||datalogging: logg data||`` fra biblioteket ``||datalogging: datalogging||``.
+Inni funksjonen ``||functions: lagre_data||``. Legg inn blokken ``||datalogging: logg data||`` fra biblioteket ``||datalogging: datalogging||``.
 
-Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til flere kolonner, trykk på pluss(+)-knappen.
+Her skal vi sette inn de forskjellige dataene vi samler. For å legge til flere kolonner, trykk på pluss(+)-knappen.
 
 I kolonne, skriv hvilke data som samles. I verdi, plasser tilhørende variabel.
 
+Se hint for hvordan dette vil kunne se ut. 
+
+NB! Det er ikke plass til ubegrenset data på micro:biten, så det er lurt å plassere en blokk i ``||basic: ved start||`` som sletter loggen når den er full (``||datalogging: slett logg||``). 
+
 ```blocks
+datalogging.deleteLog()
+
 function lagre_data () {
     datalogging.log(
     datalogging.createCV("Teller", teller),
     datalogging.createCV("Temperatur (NTC)", temperatur_NTC),
-    datalogging.createCV("Trykk", trykk)
     )
 }
 ``` 
-<!-- Del 8.3: -->
+<!-- Del 8.4: -->
 
 ## Oppgave 8 - Sjekke at data blir logget
 
@@ -559,13 +508,14 @@ Finn frem blokken ``||serial: serieport skriv verdi||`` fra biblioteket ``||seri
 
 Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til en blokk for hver variabel du skal vise.
 
-I stedet for "x", skriv hvilke data som samles. Og plasser tilhørende variabel inn der 0 står.
+I stedet for "x", skriv hvilke data som samles. Og plasser tilhørende variabel inn der 0 står. Se hint for hvordan det kan se ut.
+
+Test at det fungerer ved å skru på CanSaten mens den er koblet til PCen og trykk på "Show data Enhet" som kommer opp under micro:biten på skjermen. 
 
 ```blocks
 function vise_data_PC () {
     serial.writeValue("Teller", teller)
     serial.writeValue("Temperatur (NTC)", temperatur_NTC)
-    serial.writeValue("Trykk", trykk)
 }
 ```
 
@@ -574,6 +524,7 @@ function vise_data_PC () {
 ## Ferdig! 
 
 Gratulerer! Du har nå en fungerende primær-oppdrag for CanSat med bruk av micro:bit!
+
 
 ```blocks
 input.onPinPressed(TouchPin.P0, function () {
