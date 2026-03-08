@@ -80,7 +80,9 @@ function samle_data () {
 Kitronik OLED-skjerm lar oss vise verdiene mer effektivt enn skjermen på micro:biten. 
 
 For å ta i bruk OLED-skjermen, koble den til mellom CanSat og micro:bit.
+
 Pass på at micro:bit settes oppi riktig vei, riktig pin mot riktig pin og videre at OLED-skjermen plasseres riktig til kretskortet, med skjermen vendt ut fra kretskortet. 
+
 ![OLED_Kitronik_liten.jpg](https://i.postimg.cc/mD2ry8kJ/OLED_Kitronik_liten.jpg)
 
 
@@ -88,13 +90,12 @@ Pass på at micro:bit settes oppi riktig vei, riktig pin mot riktig pin og vider
 
 ## Oppgave 2 - Sette opp OLED-skjerm for å kunne vise analogverdi fra NTC
 
-Fra biblioteket ``||kitronik_VIEW128x64: OLED-skjerm||``, hent blokkene ``||kitronik_VIEW128x64: skru AV OLED-skjerm||`` og ``||kitronik_VIEW128x64: Sett font størrelse til Normal||``. 
+Fra biblioteket ``||kitronik_VIEW128x64: OLED-skjerm||``, hent blokken ``||kitronik_VIEW128x64: skru AV OLED-skjerm||``. 
 
-Plasser begge blokkene inn i ``||basic: ved start||``, og sett OLED-skjerm til ``||kitronik_VIEW128x64: PÅ||``.
+Plasser blokken inn i ``||basic: ved start||``, og sett OLED-skjerm til ``||kitronik_VIEW128x64: PÅ||``.
 
 ```blocks
 kitronik_VIEW128x64.controlDisplayOnOff(kitronik_VIEW128x64.onOff(true))
-kitronik_VIEW128x64.setFontSize(kitronik_VIEW128x64.FontSelection.Normal)
 ```
 
 <!-- Del 2.4: -->
@@ -287,6 +288,8 @@ For å få 2 desimaler på verdiene fra CanSaten, kjør ``||functions: avrund||`
 
 Se hint om du lurer på hvordan dette ser ut. 
 
+**Last ned koden på micro:bit på CanSat, og sjekk at verdiene på OLED-skjermen vises kun med 2 desimaler.**
+
 ```blocks
 function avrund (sensorverdi: number) {
     return Math.round(sensorverdi * 100) / 100
@@ -297,9 +300,6 @@ function vise_data_OLED () {
 }
 
 ```
-
-**Last ned koden på micro:bit på CanSat, og sjekk at verdiene på OLED-skjermen vises kun med 2 desimaler.**
-
 
 <!-- Del 6: -->
 
@@ -431,7 +431,8 @@ I den første ruta, skriv "Høyde: ". I den andre ruta, sette inn ``||variables:
 For å få 2 desimaler, kjør ``||functions: avrund||`` inni der vi skriver variabelen ``||variables: høyde||``.
 
 **Last ned koden på micro:bit på CanSat, og sjekk at du får verdien ut på OLED-skjermen.** Sjekk om høydemålingen gir mening. 
-Viktig å trykke på knapp A på micro:bit for nullstille høyden.
+
+**NB:** Viktig å trykke på knapp A på micro:bit for nullstille høyden.
 
 
 
@@ -448,9 +449,11 @@ Alle dataene vi samler skal lagres i internminnet til micro:bit.
 ## Oppgave 8 - Lage en teller for å holde oversikt i dataene
 
 Når vi logger data er det fint å nummerere dataene slik at det er lettere å finne frem og systematisere de senere. 
+
 Dette gjør man gjerne ved å lage en telle-variabel.
 
 Lag en ny variabel ``||variables: teller||``. Sett den til 0 og plasser den i ``||basic: ved start||``. 
+
 Sett blokken for å endre variablen teller inn i ``||basic: gjenta for alltid||`` (se hint), etter alle funksjonene er kjørt. Da vil denne variablen endres med 1 for hver gang datainnsamlingen skjer.
 
 ```blocks
@@ -473,10 +476,12 @@ I kolonne, skriv hvilke data som samles. I verdi, plasser tilhørende variabel.
 
 Se hint for hvordan dette vil kunne se ut. 
 
-NB! Det er ikke plass til ubegrenset data på micro:biten, så det er lurt å plassere en blokk i ``||basic: ved start||`` som sletter loggen når den er full (``||datalogging: slett logg||``). 
+**NB:** Det er ikke plass til ubegrenset data på micro:biten, så det er lurt å plassere blokken (``||datalogging: slett logg||``) inn i f.eks. ``||input: når knapp A+B trykkes ||``. Da kan vi slette all data lagret på micro:bit sitt minne hvis vi ønsker det, f.eks. før vi skal slippe CanSat fra dronen.
 
 ```blocks
-datalogging.deleteLog()
+input.onButtonPressed(Button.AB, function () {
+    datalogging.deleteLog()
+})
 
 function lagre_data () {
     datalogging.log(
@@ -502,13 +507,13 @@ Du bør nå se dataene dine her!
 
 ## Oppgave 9 - Overføre dataene fra CanSat til en PC, og vise de på skjermen
 
-Vi skal nå sette opp det som skal inn i funksjonen ``||functions: vise_data_PC||``.
+Vi skal nå sette opp det som skal inn i funksjonen ``||functions: vise_data_PC||``:
 
 Finn frem blokken ``||serial: serieport skriv verdi||`` fra biblioteket ``||serial: serieport||``.
 
-Her skal vi sette inn de forskjellige dataene vi har samlet. For å legge til en blokk for hver variabel du skal vise.
+Denne blokken lar oss vise de forskjellige dataene vi har samlet på PCen vår. Vi må legge til en blokk for hver variabel som skal vises.
 
-I stedet for "x", skriv hvilke data som samles. Og plasser tilhørende variabel inn der 0 står. Se hint for hvordan det kan se ut.
+I stedet for "x", skriv hvilke data som samles, f.eks. "Teller". Og plasser tilhørende variabel inn der 0 står. Se hint for hvordan det kan se ut.
 
 Test at det fungerer ved å skru på CanSaten mens den er koblet til PCen og trykk på "Show data Enhet" som kommer opp under micro:biten på skjermen. 
 
